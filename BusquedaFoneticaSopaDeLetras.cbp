@@ -34,9 +34,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/AyudaFoneticaSP.h" />
+		<Unit filename="include/AyudaFoneticaSP.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/AyudaFoneticaSP.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

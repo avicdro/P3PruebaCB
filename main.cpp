@@ -1,5 +1,5 @@
 #include <iostream>
-#include "AyudaFoneticaSP.h"
+#include "AyudaFoneticaSP.hpp"
 
 
 using namespace std;
@@ -15,14 +15,15 @@ int main()
         matriz[i] = new char[columna];
     }
 
-//    string* h = new string[fila];
-//    for(i=0;i<fila;i++){
-//        cin >>h[i];
-//    }
-//    cout<<endl;
-//    for(i=0;i<fila;i++){
-//        cout<< h[i] <<"  ";
-//    }
+    string* h = new string[fila];
+    for(i=0;i<fila;i++){
+        cin >>h[i];
+    }
+    cout<<endl;
+    h[0];
+    for(i=0;i<fila;i++){
+        cout<< h[i] <<"  ";
+    }
 
 
     //AyudaFoneticaSP SP = new AyudaFoneticaSP(fila, columna, matriz);

@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1530040487 source:c:\users\avicd\documents\rama-1\practicas\practicas de c++\p8_busquedafoneticasopadeletras\busquedafoneticasopadeletras\main.cpp
+1530241730 source:c:\users\avicd\documents\rama-1\practicas\practicas de c++\p8_busquedafoneticasopadeletras\busquedafoneticasopadeletras\main.cpp
 	<iostream>
 	"AyudaFoneticaSP.h"
 
-1530235434 c:\users\avicd\documents\rama-1\practicas\practicas de c++\p8_busquedafoneticasopadeletras\busquedafoneticasopadeletras\include\ayudafoneticasp.h
+1530242051 c:\users\avicd\documents\rama-1\practicas\practicas de c++\p8_busquedafoneticasopadeletras\busquedafoneticasopadeletras\include\ayudafoneticasp.h
+	<iostream>
 
 1530235447 source:c:\users\avicd\documents\rama-1\practicas\practicas de c++\p8_busquedafoneticasopadeletras\busquedafoneticasopadeletras\src\ayudafoneticasp.cpp
 	"AyudaFoneticaSP.h"
