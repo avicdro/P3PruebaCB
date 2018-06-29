@@ -8,17 +8,24 @@ int main()
 {
     int fila, columna;
     int i;
-    cout>> fila >>columna;
+    cin>> fila >>columna;
 
-    char** matriz = new char[fila];
+    char** matriz = new char* [fila];
     for(i=0;i<fila;i++){
         matriz[i] = new char[columna];
     }
 
-    AyudaFoneticaSP SP = new AyudaFoneticaSP(filam, columna, matriz);
+//    string* h = new string[fila];
+//    for(i=0;i<fila;i++){
+//        cin >>h[i];
+//    }
+//    cout<<endl;
+//    for(i=0;i<fila;i++){
+//        cout<< h[i] <<"  ";
+//    }
 
 
-
+    //AyudaFoneticaSP SP = new AyudaFoneticaSP(fila, columna, matriz);
 
     return 0;
 }

@@ -7,20 +7,32 @@ AyudaFoneticaSP::AyudaFoneticaSP(int filas, int columnas, char** matriz)
     this->matriz = matriz;
 }
 
-AyudaFoneticaSP::~AyudaFoneticaSP()
+AyudaFoneticaSP::~AyudaFoneticaSP(){}
+
+//AyudaFoneticaSP::realizarBusqueda()
+//{
+//
+//
+//}
+AyudaFoneticaSP::guardarMayorImportancia()
 {
-    delete matriz;
+    int i = 0;
+    int e = 0;
+    for(){
+
+    }
 }
 
-AyudaFoneticaSP::realizarBusqueda()
-{
 
-
-}
-
-AyudaFoneticaSP::eliminarCaracteres()
-{
-
-
-
-}
+//AyudaFoneticaSP::eliminarCaracteres()
+//{
+//
+//
+//
+//}
+//        void guardarMayorImportancia();
+//        void eliminarCaracteres();
+//        void reemplazarLetrasPorNUmeros();
+//        void unirValoresNumericosConLetras();
+//        void letraYtresPrimerosNumeros();
+//        void eliminarRepetidos();

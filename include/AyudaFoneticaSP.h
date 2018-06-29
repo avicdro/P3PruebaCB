@@ -9,20 +9,29 @@ class AyudaFoneticaSP
         int columnas;
         char** matriz;
 
-    public:
-        /** Default constructor */
-        AyudaFoneticaSP(int, int, char**);
-        /** Default destructor */
-        virtual ~AyudaFoneticaSP();
+        int cantPalabrasABuscar;
+        string* palabrasABuscar;
+        // coincide con el indice de cada palabra
+        char* letraDeMayorImportancia;
 
-        void realizarBusqueda();
+        //cada palabra a buscar arreglada foneticamente
+        string* palabrasABuscarArregladas;
+
+
         void guardarMayorImportancia();
         void eliminarCaracteres();
         void reemplazarLetrasPorNUmeros();
         void unirValoresNumericosConLetras();
-        void eliminarRepetidos();
         void letraYtresPrimerosNumeros();
+        void eliminarRepetidos();
 
+    public:
+        /** Default constructor */
+        AyudaFoneticaSP(int filas, int columnas, char** matriz, int cantPalabrasABuscar, string palabrasABuscar);
+        /** Default destructor */
+        virtual ~AyudaFoneticaSP();
+
+        void realizarBusqueda();
 
 };
 
