@@ -29,9 +29,8 @@ public:
     Palabra(string palabra){
         this->palabra = palabra;
     }
-    void agregarFonetica(string fon){
-        fonetica = fon;
-    }
+    Palabra(){}
+
     void iniciarCordenadas(int tamaño){
         entontradas = new Coordenada[tamaño];
         for(int i=0; i<tamaño ; i++ ){
@@ -48,6 +47,18 @@ public:
     }
     void ordenarCreciente(){
 
+    }
+    string getPalabra(){
+        return palabra;
+    }
+    string getFonetica(){
+        return fonetica;
+    }
+    void setPalabra(string p){
+        palabra = p;
+    }
+    void setFonetica(string pf){
+        fonetica = pf;
     }
 };
 
@@ -70,7 +81,7 @@ class AyudaFoneticaSP
         string *palabrasABuscar;
         //cada palabra a buscar arreglada foneticamente
         string *palabrasABuscarArregladas;
-        Palabra *palabrasABuscar1;
+        Palabra *palabrasABuscarP;
 
 
 
@@ -84,16 +95,24 @@ class AyudaFoneticaSP
             this->columnas = columnas;
             this->matriz = matriz;
             this->cantPalabrasABuscar = cantPalabrasABuscar;
-            this->palabrasABuscar = palabrasABuscar;
 
-            letrasDeMayorImportancia = new char[cantPalabrasABuscar];
+            palabrasABuscarP = new Palabra[cantPalabrasABuscar];
+            for(int i=0; i<cantPalabrasABuscar;i++){
+                this->palabrasABuscarP[i].Palabra(palabrasABuscar[i]);
+            }
+
             palabrasABuscarArregladas = new string[cantPalabrasABuscar];
+            letrasDeMayorImportancia = new char[cantPalabrasABuscar];
+
         }
 
+        //////////////////////////////////////////////////////// Hasta la siguiente barra. Esta es zona de experimento
 
-        void realizarBusqueda(){
-            guardarMayorImportancia();
+        void realizarBusqueda(){  ///////// este seria lo que dirias que es el "main()"
+            guardarLetrasDeMayorImportancia();
             palabrasAbuscarArregladas();
+            iniciarArreglosDeCoordenadas();
+            iniciar
             int i, e;
             int cantidadDeCoord = 0;
             for(i=0; i<filas;i++){
@@ -135,14 +154,24 @@ class AyudaFoneticaSP
 
 
         }
-        int indiceP(char p){
+        int cantidadDeChar(char p){
+            int cant = 0;
             for(int i=0; i<cantPalabrasABuscar;i++){
-                if(p == letrasDeMayorImportancia[i]){
-                    return i;
+                for(int e=0;e<cantPalabrasABuscar; e++){
+                    if(p == matriz[i][e]){
+                        cant++;
+                    }
                 }
             }
-            return 0;
+            return cant;
         }
+
+        void iniciarArreglosDeCoordenadas(){
+            for(int i=0; i<cantPalabrasABuscar;i++){
+                palabrasABuscarP[i].iniciarCordenadas(cantidadDeChar(palabrasABuscarP[i].getPalabra().at(0)));
+            }
+        }
+
         int cantidadDeVecesP(string palabra){
             int cont = 0;
             for(int i=0; i<cantPalabrasABuscar; i++){
@@ -189,14 +218,16 @@ class AyudaFoneticaSP
             }
             return false;
         }
+
+
+        ///////////////////////////////////////////////////////////Los de mayor importancia estan abajo
         /**
         * llenar arreglo de palabras arregladas
         */
         void palabrasAbuscarArregladas(){
             int i;
             for(i=0; i<cantPalabrasABuscar; i++){
-                obtenerLetraDeMomento(palabrasABuscar[i].at(0));
-                palabrasABuscarArregladas[i] = palabraArreglada(palabrasABuscar[i]);
+                palabrasABuscarP[i].setFonetica(palabraArreglada(palabrasABuscarP[i].getPalabra()));
             }
 
         }
@@ -256,10 +287,10 @@ class AyudaFoneticaSP
         /**
         *  Primer paso
         */
-        void guardarMayorImportancia(){
+        void guardarLetrasDeMayorImportancia(){
             int i;
             for(i=0;i<cantPalabrasABuscar;i++){
-                letrasDeMayorImportancia[i] = palabrasABuscar[i].at(0);
+                letrasDeMayorImportancia[i] = palabrasABuscarP[i].getPalabra().at(0);
             }
         }
         /**
