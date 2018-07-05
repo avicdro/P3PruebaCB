@@ -12,10 +12,10 @@ class Palabra
         int x;
         int y;
         Coordenada(){
-            x = 0;
-            y = 0;
+            x = -1;
+            y = -1;
         }
-        Coordenada(int xx , int yy){
+        void nvC(int xx ,int yy){
             x = xx;
             y = yy;
         }
@@ -31,17 +31,16 @@ public:
     }
     Palabra(){}
 
-    void iniciarCordenadas(int tamaño){
-        entontradas = new Coordenada[tamaño];
-        for(int i=0; i<tamaño ; i++ ){
-            encontradas[i].Coordenada(-1,-1);
-        }
+
+    void iniciarCoordenadas(int tam){
+        encontradas = new Coordenada[tam];
+
     }
     void agregarEncontrada(int fila,int columna){
         int tam = sizeof(encontradas)/sizeof(*encontradas);
         for(int i; i<tam; i++){
-            if(encontradas[i].x == -1){
-                encontradas[i].Coordenada(fila,columna);
+            if(encontradas[i].x == -1 && encontradas[i].y == -1){
+                encontradas[i].nvC(fila,columna);
             }
         }
     }
@@ -74,13 +73,9 @@ class AyudaFoneticaSP
 
 
         int cantPalabrasABuscar;
-        char* letrasDeMayorImportancia;
         char letraDeMomeno;
 
-        // coincide con el indice de cada palabra
-        string *palabrasABuscar;
         //cada palabra a buscar arreglada foneticamente
-        string *palabrasABuscarArregladas;
         Palabra *palabrasABuscarP;
 
 
@@ -93,52 +88,65 @@ class AyudaFoneticaSP
         AyudaFoneticaSP(int filas, int columnas, char** matriz, int cantPalabrasABuscar, string* palabrasABuscar){
             this->filas = filas;
             this->columnas = columnas;
-            this->matriz = matriz;
+
+            int i,e;
+            matriz = new char* [filas];
+            for(i=0;i<filas;i++){
+                matriz[i] = new char[columnas];
+            }
+            for(i=0;i<filas;i++){
+                for(e=0;e<columnas;e++){
+                    this->matriz[i][e] = matriz[i][e];
+                }
+            }
+
             this->cantPalabrasABuscar = cantPalabrasABuscar;
 
             palabrasABuscarP = new Palabra[cantPalabrasABuscar];
-            for(int i=0; i<cantPalabrasABuscar;i++){
-                this->palabrasABuscarP[i].Palabra(palabrasABuscar[i]);
+            for(i=0; i<cantPalabrasABuscar;i++){
+                this->palabrasABuscarP[i].setPalabra(palabrasABuscar[i]);
             }
-
-            palabrasABuscarArregladas = new string[cantPalabrasABuscar];
-            letrasDeMayorImportancia = new char[cantPalabrasABuscar];
-
+            for(i=0;e<filas;e++){
+                for(e=0;e<columnas;e++){
+                    cout<<matriz[i][e];
+                }
+                cout<<endl;
+            }
         }
 
         //////////////////////////////////////////////////////// Hasta la siguiente barra. Esta es zona de experimento
 
         void realizarBusqueda(){  ///////// este seria lo que dirias que es el "main()"
-            guardarLetrasDeMayorImportancia();
+            // Preparando motores
             palabrasAbuscarArregladas();
             iniciarArreglosDeCoordenadas();
-            iniciar
+
             int i, e;
             int cantidadDeCoord = 0;
             for(i=0; i<filas;i++){
                 for(e=0; e<columnas;e++){
                     char letra = matriz[i][e];
-                    if(loEncontro(letra)){
-
+//                    if(loEncontro(letra)){
 //
-//                        string izquierda = "";
-//                        string derecha = "";
-//                        string arriba = "";
-//                        string abajo = "";
-
-//                        tomarPalabraPorIndice(i,e, izquierda, derecha, arriba, abajo);
+////
+////                        string izquierda = "";
+////                        string derecha = "";
+////                        string arriba = "";
+////                        string abajo = "";
 //
-//                        izquierda = palabraArreglada(izquierda);
-//                        derecha = palabraArreglada(derecha);
-//                        arriba = palabraArreglada(arriba);
-//                        abajo = palabraArreglada(abajo);
-
-
-                        coordenadas[cantidadDeCoord] = Coordenada(letra,i,e);
-                        cantidadDeCoord++;
-
-
-                    }
+////                        tomarPalabraPorIndice(i,e, izquierda, derecha, arriba, abajo);
+////
+////                        izquierda = palabraArreglada(izquierda);
+////                        derecha = palabraArreglada(derecha);
+////                        arriba = palabraArreglada(arriba);
+////                        abajo = palabraArreglada(abajo);
+//
+//
+//                        coordenadas[cantidadDeCoord] = Coordenada(letra,i,e);
+//                        cantidadDeCoord++;
+//
+//
+//                    }
                 }
             }
 
@@ -146,7 +154,7 @@ class AyudaFoneticaSP
             int sin =  cantPalabrasABuscar - cantidadDeCoord;
             sinOcurrencias = new string[sin];
             for(i=0; i<filas*columnas;i++){
-                conOcurrencias[i] = palabrasABuscarArregladas[i] +" "+ palabrasABuscar[i];
+                conOcurrencias[i] = palabrasABuscarP[i].getFonetica() +" "+  palabrasABuscarP[i].getPalabra();
                 cout << conOcurrencias[i]<<endl;
             }
             persistencia(conOcurrencias,cantidadDeCoord,"conocurrencias.txt");
@@ -154,6 +162,7 @@ class AyudaFoneticaSP
 
 
         }
+
         int cantidadDeChar(char p){
             int cant = 0;
             for(int i=0; i<cantPalabrasABuscar;i++){
@@ -168,56 +177,13 @@ class AyudaFoneticaSP
 
         void iniciarArreglosDeCoordenadas(){
             for(int i=0; i<cantPalabrasABuscar;i++){
-                palabrasABuscarP[i].iniciarCordenadas(cantidadDeChar(palabrasABuscarP[i].getPalabra().at(0)));
+                palabrasABuscarP[i].iniciarCoordenadas(cantidadDeChar(palabrasABuscarP[i].getPalabra().at(0)));
             }
         }
 
-        int cantidadDeVecesP(string palabra){
-            int cont = 0;
-            for(int i=0; i<cantPalabrasABuscar; i++){
-                if(palabra.compare(palabrasABuscarArregladas[i]) == 0 ){
-                       cont++;
-                }
-            }
-            return cont;
-        }
-        /**
-        * Devuelve true si suena a algo
-        */
-        bool suenaAAlgo(string palabra){
-            for(int i = 0; i<cantPalabrasABuscar; i++){
-                if(palabra.compare(palabrasABuscarArregladas[i]) == 0){
-                    return true;
-                }
-            }
-            return false;
-        }
-        /**
-        *  Busca la coincidencia entre sus equivalentes foneticos
-        */
-//        void elMismoSonidoQue(string &mismas, string palabra){
-//            int i;
-//            int cont=0;
-//            for(i=0; i<cantPalabrasABuscar; i++){
-//                if(palabra == palabrasABuscarArregladas[i]){
-//                    mismas[cont] = palabrasABuscar[i];
-//                    cont++;
-//                }
-//            }
-//        }
 
-        /**
-        * Busca la palabra que se le pase retorna true si la encuentra
-        */
-        bool loEncontro(char letra){
-            int i;
-            for(i=0 ; i<cantPalabrasABuscar;i++){
-                if(letra == letrasDeMayorImportancia[i]){
-                    return true;
-                }
-            }
-            return false;
-        }
+
+
 
 
         ///////////////////////////////////////////////////////////Los de mayor importancia estan abajo
@@ -243,12 +209,7 @@ class AyudaFoneticaSP
                 palabra = letraYPrimerosNumeros(palabra);
                 return palabra;
         }
-        /**
-        *   Guarda la letra de momento para luego revisar si esta
-        */
-        void obtenerLetraDeMomento(char letra){
-            letraDeMomeno = letra;
-        }
+
         /**
         * Tomar palabra por indice
         */
@@ -284,14 +245,12 @@ class AyudaFoneticaSP
             }
             archivo.close();
         }
+
         /**
         *  Primer paso
         */
-        void guardarLetrasDeMayorImportancia(){
-            int i;
-            for(i=0;i<cantPalabrasABuscar;i++){
-                letrasDeMayorImportancia[i] = palabrasABuscarP[i].getPalabra().at(0);
-            }
+        void obtenerLetraDeMomento(char letra){
+            letraDeMomeno = letra;
         }
         /**
         *  Segundo paso

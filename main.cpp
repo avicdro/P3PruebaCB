@@ -31,12 +31,12 @@ int main()
     AyudaFoneticaSP* sp = new AyudaFoneticaSP(fila, columna, matriz, cantPalabras, palabrasABuscar);
 
     cout<<"---------Salida--------"<<endl;
-    for(i=0;i<fila;i++){
-        for(e=0;e<columna;e++){
-            cout << matriz[i][e];
-        }
-        cout<<endl;
-    }
+//    for(i=0;i<fila;i++){
+//        for(e=0;e<columna;e++){
+//            cout << matriz[i][e];
+//        }
+//        cout<<endl;
+//    }
 
     for(i=0;i<cantPalabras;i++){
         cout << palabrasABuscar[i]<<endl;
